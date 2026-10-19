@@ -1,1 +1,223 @@
-NADERKA CARD
+
+
+<!DOCTYPE html>
+
+<html lang="uk">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>NADERKA CARDS</title>
+
+<style>
+
+* { box-sizing: border-box; }
+
+body {
+
+  margin: 0;
+
+  padding: 20px;
+
+  background: #101522;
+
+  color: white;
+
+  font-family: Arial, sans-serif;
+
+  text-align: center;
+
+}
+
+h1 { color: #63ff91; }
+
+.balance {
+
+  font-size: 20px;
+
+  margin: 20px;
+
+}
+
+button {
+
+  background: #63ff91;
+
+  color: #101522;
+
+  border: none;
+
+  border-radius: 10px;
+
+  padding: 13px 20px;
+
+  font-size: 16px;
+
+  font-weight: bold;
+
+  margin: 8px;
+
+}
+
+.cards {
+
+  display: grid;
+
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+
+  gap: 12px;
+
+  max-width: 500px;
+
+  margin: 25px auto;
+
+}
+
+.card {
+
+  background: linear-gradient(145deg, #263b59, #151c2b);
+
+  border: 2px solid #63ff91;
+
+  border-radius: 14px;
+
+  padding: 18px 8px;
+
+}
+
+.card .number {
+
+  font-size: 35px;
+
+  font-weight: bold;
+
+  color: #63ff91;
+
+}
+
+.card p { margin: 8px 0; }
+
+.small { color: #aab5c8; }
+
+</style>
+
+</head>
+
+<body>
+
+<h1>NADERKA CARDS</h1>
+
+<p>Збирай футбольні картки!</p>
+
+<div class="balance">
+
+  Недри: <span id="coins">100</span>
+
+</div>
+
+<button onclick="openPack()">ВІДКРИТИ ПАК — 20</button>
+
+<h2>Моя колекція</h2>
+
+<div id="cards" class="cards"></div>
+
+<p class="small">Повтори карток теж можна отримувати!</p>
+
+<script>
+
+let coins = 100;
+
+let collection = [];
+
+const players = [
+
+  {name: "Cristiano Ronaldo", rating: 91, club: "Al Nassr"},
+
+  {name: "Lionel Messi", rating: 93, club: "Inter Miami"},
+
+  {name: "Kylian Mbappe", rating: 92, club: "Real Madrid"},
+
+  {name: "Erling Haaland", rating: 91, club: "Manchester City"},
+
+  {name: "Vinicius Junior", rating: 90, club: "Real Madrid"},
+
+  {name: "Jude Bellingham", rating: 90, club: "Real Madrid"},
+
+  {name: "Lamine Yamal", rating: 89, club: "Barcelona"},
+
+  {name: "Mohamed Salah", rating: 90, club: "Liverpool"}
+
+];
+
+function openPack() {
+
+  if (coins < 20) {
+
+    alert("Недостатньо недрів!");
+
+    return;
+
+  }
+
+  coins -= 20;
+
+  const player = players[
+
+    Math.floor(Math.random() * players.length)
+
+  ];
+
+  collection.push(player);
+
+  document.getElementById("coins").textContent = coins;
+
+  renderCards();
+
+  alert("Тобі випав: " + player.name + " (" + player.rating + ")");
+
+}
+
+function renderCards() {
+
+  const container = document.getElementById("cards");
+
+  container.innerHTML = "";
+
+  collection.forEach(player => {
+
+    const card = document.createElement("div");
+
+    card.className = "card";
+
+    const rating = document.createElement("div");
+
+    rating.className = "number";
+
+    rating.textContent = player.rating;
+
+    const name = document.createElement("p");
+
+    name.textContent = player.name;
+
+    const club = document.createElement("p");
+
+    club.className = "small";
+
+    club.textContent = player.club;
+
+    card.append(rating, name, club);
+
+    container.appendChild(card);
+
+  });
+
+}
+
+</script>
+
+</body>
+
+</html>
